@@ -1,28 +1,17 @@
-# Hospital Appointy
+# Hospital Appointment System
 
-This is a Hospital Online Booking Appointment Application.
+Appointment scheduling software or meeting scheduling tools allows businesses and professionals to manage appointments and bookings. This type of software is also known as appointment booking software and online booking software.
 
 ## App Features:
 
-*   Visitor Can search for appointment 
-      by - Date , Specialization , Doctor.
+*   Visitor Can search for appointment by typing  "Date" , "Specialization" , "Doctor".
                       
-*   Patient can search , book & cancel an Appointment and can 
-              see the doctor profile & booked appointment.
+*   Patient can "Search" , "Book" & "Cancel" an Appointment and can see the doctor's profile & booked appointment.
               
-*   Doctor can use this app to see the booked appointments of patient
-               and dotor can also update his profile through this app.
+*   Doctor can use this app to see the booked appointments of patient. The doctors can update his profile through this app.
 
-## Registration Process
 
-* Patient can register their account with this app only.
-
-* Doctor registration will be done through the [Hospital-Appointy-Web](https://github.com/amankumar367/Hospital-Appointy-Web) & you can see web demo here [Click Here.](https://amankumar367.github.io/Hospital-Appointy-Web/)
-
-* Doctor can only login to app or web when his account approved by the Manager & same for the Manager, his account will be approved by the admin.
-
-* Dependencies:  ``` Admin --> Manager --> Doctor ``` 
-               
-# Demo of App
-
- <img src="https://github.com/amankumar367/HospitalAppointy/blob/master/Screenshots/Hospital_Appointy.gif">
+Group Members:
+>1. Aqila Hassan
+>2. Mashfiq Rizvee
+>3. Abir Hossain Rohan
