@@ -28,6 +28,7 @@ public class DoctorProfileActivity extends AppCompatActivity {
 
     private DatabaseReference mDoctorDatabase = FirebaseDatabase.getInstance().getReference();
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,10 +55,7 @@ public class DoctorProfileActivity extends AppCompatActivity {
         mShowRosterPlanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(Doctor_ProfileActivity.this,"Show Roster Plan Clicked",Toast.LENGTH_SHORT).show();
                 alertDialogBox();
-
-
             }
         });
 
@@ -65,20 +63,16 @@ public class DoctorProfileActivity extends AppCompatActivity {
         mEditProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(Doctor_ProfileActivity.this,"Edit Profile Clicked",Toast.LENGTH_SHORT).show();
-
-                Intent editProfile_Intent = new Intent(DoctorProfileActivity.this, EditDoctorProfileActivity.class);
-
-                editProfile_Intent.putExtra("Name",name);
-                editProfile_Intent.putExtra("Specialization",specialization);
-                editProfile_Intent.putExtra("Experiance",experiance);
-                editProfile_Intent.putExtra("Education",education);
-                editProfile_Intent.putExtra("Email",email);
-                editProfile_Intent.putExtra("Age",age);
-                editProfile_Intent.putExtra("Contact",contact);
-                editProfile_Intent.putExtra("Address",address);
-
-                startActivity(editProfile_Intent);
+                Intent intent = new Intent(DoctorProfileActivity.this, EditDoctorProfileActivity.class);
+                intent.putExtra("Name", name);
+                intent.putExtra("Specialization", specialization);
+                intent.putExtra("Experiance", experiance);
+                intent.putExtra("Education", education);
+                intent.putExtra("Email", email);
+                intent.putExtra("Age", age);
+                intent.putExtra("Contact", contact);
+                intent.putExtra("Address", address);
+                startActivity(intent);
             }
         });
 
@@ -96,7 +90,7 @@ public class DoctorProfileActivity extends AppCompatActivity {
         TextView rosterLunchMorning = (TextView) view.findViewById(R.id.roster_lunch_morning);
         TextView rosterLunchEvening = (TextView) view.findViewById(R.id.roster_lunch_evening);
 
-        if(shift.equals("Morning")){
+        if (shift == "Morning") {
 
             rosterShift.setText(shift);
 
@@ -106,7 +100,7 @@ public class DoctorProfileActivity extends AppCompatActivity {
             rosterLunchMorning.setVisibility(View.VISIBLE);
             rosterLunchEvening.setVisibility(View.GONE);
 
-        }else {
+        } else {
 
             rosterShift.setText(shift);
 
@@ -165,7 +159,5 @@ public class DoctorProfileActivity extends AppCompatActivity {
 
             }
         });
-
-
     }
 }
