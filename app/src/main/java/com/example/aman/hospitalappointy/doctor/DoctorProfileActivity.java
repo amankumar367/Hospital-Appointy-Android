@@ -133,15 +133,15 @@ public class DoctorProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                name = dataSnapshot.child("Name").getValue().toString();
-                email = dataSnapshot.child("Email").getValue().toString();
-                contact = dataSnapshot.child("Contact").getValue().toString();
-                education = dataSnapshot.child("Education").getValue().toString();
-                specialization = dataSnapshot.child("Specialization").getValue().toString();
-                experiance = dataSnapshot.child("Experiance").getValue().toString();
-                age = dataSnapshot.child("Age").getValue().toString();
-                address = dataSnapshot.child("Address").getValue().toString();
-                shift = dataSnapshot.child("Shift").getValue().toString();
+                name = getDataSnapshot("Name", dataSnapshot);
+                email = getDataSnapshot("Email", dataSnapshot);
+                contact = getDataSnapshot("Contact", dataSnapshot);
+                education = getDataSnapshot("Education", dataSnapshot);
+                specialization = getDataSnapshot("Specialization", dataSnapshot);
+                experiance = getDataSnapshot("Experiance", dataSnapshot);
+                age = getDataSnapshot("Age", dataSnapshot);
+                address = getDataSnapshot("Address", dataSnapshot);
+                shift = getDataSnapshot("Shift", dataSnapshot);
 
                 mName.setText(name);
                 mSpecialization.setText(specialization);
@@ -158,6 +158,14 @@ public class DoctorProfileActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
 
             }
+
+            private String getDataSnapshot(String child, DataSnapshot dataSnapshot) {
+                String value = "";
+                if (dataSnapshot.hasChild(child))
+                    value = dataSnapshot.child(child).getValue().toString();
+                return value;
+            }
+
         });
     }
 }

@@ -184,16 +184,16 @@ public class SpecializationFragment extends Fragment {
                                 });
                             }
 
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+
                             private String getDataSnapshot(String child, DataSnapshot dataSnapshot) {
                                 String value = "";
                                 if (dataSnapshot.hasChild(child))
                                     value = dataSnapshot.child(child).getValue().toString();
                                 return value;
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
                             }
                         });
                     }
