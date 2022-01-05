@@ -38,12 +38,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SpecializationFragment extends Fragment {
 
+    private View rootView;
     private TextInputLayout mSearch;
-    private EditText searchtext;
 
     private RecyclerView mRecylerView;
 
-    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    private final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
     public SpecializationFragment() {
         //Required Empty public constructor otherwise app will crash
@@ -52,45 +52,46 @@ public class SpecializationFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        rootView = inflater.inflate(R.layout.fragment_specialization, container, false);
+        return rootView;
+    }
 
-        final View rootView = inflater.inflate(R.layout.fragment_specialization, container, false);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initView();
+    }
 
+    private void initView() {
         mSearch = (TextInputLayout) rootView.findViewById(R.id.search_by_specialization);
-        searchtext = (EditText) rootView.findViewById(R.id.special_searchtxt);
+        EditText searchTextBox = (EditText) rootView.findViewById(R.id.special_searchtxt);
 
-        searchtext.addTextChangedListener(new TextWatcher() {
+        searchTextBox.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                onStart();
+
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                onStart();
+
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                onStart();
+                updateView(editable.toString());
             }
         });
 
         mRecylerView = (RecyclerView) rootView.findViewById(R.id.specialization_recyclerView);
         mRecylerView.setHasFixedSize(true);
         mRecylerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
-
-        return rootView;
+        updateView("");
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
+    private void updateView(String searchQuery) {
+        Query query = mDatabase.child("Specialization").orderByKey().startAt(searchQuery).endAt(searchQuery + "\uf8ff");
 
-
-        String search = mSearch.getEditText().getText().toString();
-
-
-        Query query = mDatabase.child("Specialization").orderByKey().startAt(search).endAt(search + "\uf8ff");
         FirebaseRecyclerOptions<BookedAppointmentList> firebaseRecyclerOptions = new FirebaseRecyclerOptions.Builder<BookedAppointmentList>()
                 .setQuery(query, BookedAppointmentList.class)
                 .build();
@@ -100,16 +101,13 @@ public class SpecializationFragment extends Fragment {
                     @Override
                     protected void onBindViewHolder(@NonNull final SpecializationViewHolder holder, final int position, @NonNull final BookedAppointmentList model) {
 
-//                        final String doctorID = model.getDoctor_ID().toString();
                         final String Special = getRef(position).getKey();
                         holder.setSpecialization(Special);
 
                         if (position % 2 == 0) {
                             holder.setImage(1);
-
                         } else {
                             holder.setImage(2);
-
                         }
 
                         holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -132,9 +130,7 @@ public class SpecializationFragment extends Fragment {
                 };
         mRecylerView.setAdapter(firebaseRecyclerAdapter);
         firebaseRecyclerAdapter.startListening();
-
     }
-
 
     private void alertDialog(String special) {
 
@@ -158,17 +154,17 @@ public class SpecializationFragment extends Fragment {
                     @Override
                     protected void onBindViewHolder(@NonNull final SpecializationVH holder, int position, @NonNull final BookedAppointmentList model) {
 
-                        final String doctorID = model.getDoctor_ID().toString();
+                        final String doctorID = model.getDoctor_ID();
 
                         mDatabase.child("Doctor_Details").child(doctorID).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                final String doctorName = dataSnapshot.child("Name").getValue().toString();
-                                final String specialization = dataSnapshot.child("Specialization").getValue().toString();
-                                final String contact = dataSnapshot.child("Contact").getValue().toString();
-                                final String experience = dataSnapshot.child("Experiance").getValue().toString();
-                                final String education = dataSnapshot.child("Education").getValue().toString();
-                                final String shift = dataSnapshot.child("Shift").getValue().toString();
+                                final String doctorName = getDataSnapshot("Name", dataSnapshot);
+                                final String specialization = getDataSnapshot("Specialization", dataSnapshot);
+                                final String contact = getDataSnapshot("Contact", dataSnapshot);
+                                final String experience = getDataSnapshot("Experiance", dataSnapshot);
+                                final String education = getDataSnapshot("Education", dataSnapshot);
+                                final String shift = getDataSnapshot("Shift", dataSnapshot);
 
                                 holder.setDoctorName(doctorName);
                                 holder.setSpecialization(specialization);
@@ -186,6 +182,13 @@ public class SpecializationFragment extends Fragment {
                                         startActivity(intent);
                                     }
                                 });
+                            }
+
+                            private String getDataSnapshot(String child, DataSnapshot dataSnapshot) {
+                                String value = "";
+                                if (dataSnapshot.hasChild(child))
+                                    value = dataSnapshot.child(child).getValue().toString();
+                                return value;
                             }
 
                             @Override
@@ -211,12 +214,10 @@ public class SpecializationFragment extends Fragment {
     }
 
     public class SpecializationVH extends RecyclerView.ViewHolder {
-
         View mView;
 
         public SpecializationVH(View itemView) {
             super(itemView);
-
             mView = itemView;
         }
 
@@ -238,7 +239,6 @@ public class SpecializationFragment extends Fragment {
 
         public SpecializationViewHolder(View itemView) {
             super(itemView);
-
             mView = itemView;
         }
 
@@ -249,13 +249,11 @@ public class SpecializationFragment extends Fragment {
 
         public void setImage(int i) {
 
-            CircleImageView cr1 = (CircleImageView) mView.findViewById(R.id.profile_id_single_user);
-
+            CircleImageView imageView = (CircleImageView) mView.findViewById(R.id.profile_id_single_user);
             if (i == 1) {
-                cr1.setImageDrawable(getResources().getDrawable(R.mipmap.stethoscope));
-
+                imageView.setImageDrawable(getResources().getDrawable(R.mipmap.stethoscope));
             } else {
-                cr1.setImageDrawable(getResources().getDrawable(R.mipmap.injection));
+                imageView.setImageDrawable(getResources().getDrawable(R.mipmap.injection));
             }
 
         }
