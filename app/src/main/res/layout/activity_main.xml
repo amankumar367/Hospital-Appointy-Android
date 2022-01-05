@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.v4.widget.DrawerLayout xmlns:tools="http://schemas.android.com/tools"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_drawerLayout"
-    android:layout_height="match_parent"
     android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="com.example.aman.hospitalappointy.MainActivity">
+        tools:context="com.example.aman.hospitalappointy.home.HomeActivity">
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
@@ -21,7 +21,8 @@
             android:background="@drawable/tab_background"
             android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-            <include android:id="@+id/main_toolbar"
+            <include
+                android:id="@+id/main_toolbar"
                 layout="@layout/app_bar_layout" />
 
             <android.support.design.widget.TabLayout
@@ -46,14 +47,13 @@
     </LinearLayout>
 
 
-        <android.support.design.widget.NavigationView
-            android:id="@+id/main_nav_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            app:menu="@menu/menu_navigation"
-            app:headerLayout="@layout/header_menu"
-            ></android.support.design.widget.NavigationView>
+    <android.support.design.widget.NavigationView
+        android:id="@+id/main_nav_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/header_menu"
+        app:menu="@menu/menu_navigation" />
 
 
 </android.support.v4.widget.DrawerLayout>

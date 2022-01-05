@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.aman.hospitalappointy.Fragment_Doctor">
+    tools:context="com.example.aman.hospitalappointy.home.fragments.DoctorFragment">
 
 
     <LinearLayout
@@ -11,20 +11,21 @@
         android:layout_height="match_parent"
         android:layout_margin="20dp"
         android:orientation="vertical">
+
         <android.support.design.widget.TextInputLayout
             android:id="@+id/search_by_specialization"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <android.support.design.widget.TextInputEditText
-                android:drawableRight="@mipmap/search"
                 android:id="@+id/special_searchtxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableRight="@mipmap/search"
+                android:focusableInTouchMode="true"
                 android:hint="Search By Specialization"
                 android:inputType="textPersonName"
-                android:maxLength="20"
-                android:focusableInTouchMode="true"/>
+                android:maxLength="20" />
 
         </android.support.design.widget.TextInputLayout>
 

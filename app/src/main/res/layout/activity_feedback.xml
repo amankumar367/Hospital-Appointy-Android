@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.aman.hospitalappointy.FeedbackActivity">
+    tools:context="com.example.aman.hospitalappointy.feedback.FeedbackActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="10dp">
+        android:layout_margin="10dp"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
@@ -19,8 +19,8 @@
             android:gravity="center"
             android:text="Feedback"
             android:textColor="#FF8F00"
-            android:textStyle="bold"
-            android:textSize="20dp"/>
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -51,28 +51,26 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:text="Email"
+                android:layout_weight="1"
                 android:gravity="center"
+                android:text="Email"
                 android:textColor="@color/colorPrimaryDark"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/feedback_email"
                 android:layout_width="0dp"
-                android:layout_weight="2"
                 android:layout_height="match_parent"
-                android:text="User Email"
+                android:layout_weight="2"
                 android:gravity="center"
+                android:text="User Email"
                 android:textColor="@color/skyBlue"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
         </LinearLayout>
 
         <EditText
@@ -80,23 +78,22 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_margin="10dp"
-            android:padding="10dp"
+            android:background="@drawable/edittext_style"
             android:hint="Your Feedback"
             android:inputType="textMultiLine"
-            android:maxLines="10"
             android:lines="5"
-            android:background="@drawable/edittext_style"
-            />
+            android:maxLines="10"
+            android:padding="10dp" />
 
         <Button
             android:id="@+id/feedback_submit_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
+            android:background="@drawable/button_background"
             android:text="Send Feedback"
             android:textColor="@color/white"
-            android:textStyle="bold"
-            android:background="@drawable/button_background"/>
+            android:textStyle="bold" />
     </LinearLayout>
 
 </LinearLayout>

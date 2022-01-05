@@ -3,7 +3,23 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/layout/activity_doctor_profile.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/activity_edit_doctor_profile.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/activity_feedback.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/activity_forgot_password.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/activity_patient__book_appointment.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/activity_patient__doctor_profile.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/activity_patient__registration.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/activity_patient__show_booked_appointment.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/activity_register_patient.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/activity_show_doctor_appointment.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/activity_splash.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/app_bar_layout.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/doctor_list_dialog.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/fragment_date.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/fragment_doctor.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/fragment_specialization.xml" value="0.32135416666666666" />
       </map>
     </option>
