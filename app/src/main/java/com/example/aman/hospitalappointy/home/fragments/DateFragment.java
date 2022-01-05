@@ -111,7 +111,6 @@ public class DateFragment extends Fragment {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         count = (int) dataSnapshot.getChildrenCount();
                         checkAvailabilityOfDoctor(count, doctorID);
-//                        Toast.makeText(getContext(), count+"", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -146,19 +145,16 @@ public class DateFragment extends Fragment {
     }
 
     private void checkAvailabilityOfDoctor(final int count, final String doctorID) {
-
-//        Toast.makeText(getContext(),doctorID+" - UID + Count -"+count, Toast.LENGTH_SHORT).show();
         Query query = mDatabase.child("Doctor_Details").orderByChild("Name");
-
 
         FirebaseRecyclerOptions<DoctorList> firebaseRecyclerOptions = new FirebaseRecyclerOptions.Builder<DoctorList>()
                 .setQuery(query, DoctorList.class)
                 .build();
 
-        FirebaseRecyclerAdapter<DoctorList, DoctorLisetVH> firebaseRecyclerAdapter =
-                new FirebaseRecyclerAdapter<DoctorList, DoctorLisetVH>(firebaseRecyclerOptions) {
+        FirebaseRecyclerAdapter<DoctorList, DoctorListVH> firebaseRecyclerAdapter =
+                new FirebaseRecyclerAdapter<DoctorList, DoctorListVH>(firebaseRecyclerOptions) {
                     @Override
-                    protected void onBindViewHolder(@NonNull final DoctorLisetVH holder, int position, @NonNull final DoctorList model) {
+                    protected void onBindViewHolder(@NonNull final DoctorListVH holder, int position, @NonNull final DoctorList model) {
 
                         holder.setDoctorName(model.getName());
                         holder.setSpecialization(model.getSpecialization());
@@ -166,43 +162,43 @@ public class DateFragment extends Fragment {
                             @Override
                             public void onClick(View v) {
 
-                                String name = model.getName().toString();
-                                String specialization = model.getSpecialization().toString();
-                                String contact = model.getContact().toString();
-                                String experience = model.getExperiance().toString();
-                                String education = model.getEducation().toString();
-                                String shift = model.getShift().toString();
+                                String name = model.getName();
+                                String specialization = model.getSpecialization();
+                                String contact = model.getContact();
+                                String experience = model.getExperiance();
+                                String education = model.getEducation();
+                                String shift = model.getShift();
 
-                                Intent doctorProfile_Intent = new Intent(getContext(), PatientViewDoctorProfileActivity.class);
-                                doctorProfile_Intent.putExtra("Name", name);
-                                doctorProfile_Intent.putExtra("Specialization", specialization);
-                                doctorProfile_Intent.putExtra("Contact", contact);
-                                doctorProfile_Intent.putExtra("Experiance", experience);
-                                doctorProfile_Intent.putExtra("Education", education);
-                                doctorProfile_Intent.putExtra("Shift", shift);
-                                doctorProfile_Intent.putExtra("UserId", doctorID);
-                                startActivity(doctorProfile_Intent);
+                                Intent intent = new Intent(getContext(), PatientViewDoctorProfileActivity.class);
+                                intent.putExtra("Name", name);
+                                intent.putExtra("Specialization", specialization);
+                                intent.putExtra("Contact", contact);
+                                intent.putExtra("Experiance", experience);
+                                intent.putExtra("Education", education);
+                                intent.putExtra("Shift", shift);
+                                intent.putExtra("UserId", doctorID);
+                                startActivity(intent);
                             }
                         });
                     }
 
                     @Override
-                    public DoctorLisetVH onCreateViewHolder(ViewGroup parent, int viewType) {
+                    public DoctorListVH onCreateViewHolder(ViewGroup parent, int viewType) {
 
                         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_doctor_list, parent, false);
 
-                        return new DoctorLisetVH(view);
+                        return new DoctorListVH(view);
                     }
                 };
         recyclerView.setAdapter(firebaseRecyclerAdapter);
         firebaseRecyclerAdapter.startListening();
     }
 
-    public class DoctorLisetVH extends RecyclerView.ViewHolder {
+    public class DoctorListVH extends RecyclerView.ViewHolder {
 
         View mView;
 
-        public DoctorLisetVH(View itemView) {
+        public DoctorListVH(View itemView) {
             super(itemView);
 
             mView = itemView;

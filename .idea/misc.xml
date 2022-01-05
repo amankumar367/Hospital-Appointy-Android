@@ -21,6 +21,7 @@
         <entry key="app/src/main/res/layout/fragment_date.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/fragment_doctor.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/fragment_specialization.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/single_doctor_list.xml" value="0.32135416666666666" />
       </map>
     </option>
   </component>

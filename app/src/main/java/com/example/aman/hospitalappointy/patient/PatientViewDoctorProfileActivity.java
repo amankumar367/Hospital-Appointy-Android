@@ -19,9 +19,6 @@ public class PatientViewDoctorProfileActivity extends AppCompatActivity {
     private TextView mName, mEducation, mSpecialization, mExperience, mContactNo, mShift;
     private String shift;
 
-    private Button mBookAppointmentBtn;
-    private Toolbar mToolbar;
-
     private Calendar calendar;
     private DatePickerDialog datePickerDialog;
 
@@ -31,7 +28,7 @@ public class PatientViewDoctorProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_patient_view_doctor_profile);
 
         //Toolbar
-        mToolbar = (Toolbar) findViewById(R.id.patient_doctorProfile_toolbar);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.patient_doctorProfile_toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("Doctor Profile");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -43,7 +40,7 @@ public class PatientViewDoctorProfileActivity extends AppCompatActivity {
         mContactNo = (TextView) findViewById(R.id.patient_doctorProfile_contact);
         mShift = (TextView) findViewById(R.id.patient_doctorProfile_shift);
 
-        mBookAppointmentBtn = (Button) findViewById(R.id.book_appointment_button);
+        Button mBookAppointmentBtn = (Button) findViewById(R.id.book_appointment_button);
         mBookAppointmentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,19 +54,17 @@ public class PatientViewDoctorProfileActivity extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
-                        String userId = getIntent().getStringExtra("UserId").toString();
-
-                        String date = dayOfMonth +"-"+ (month+1) +"-"+ year;
-//                        Toast.makeText(Patient_DoctorProfileActivity.this, date , Toast.LENGTH_SHORT).show();
+                        String userId = getIntent().getStringExtra("UserId");
+                        String date = dayOfMonth + "-" + (month + 1) + "-" + year;
 
                         Intent intent = new Intent(PatientViewDoctorProfileActivity.this, BookAppointmentActivity.class);
-                        intent.putExtra("Date",date);
-                        intent.putExtra("DoctorUserId",userId);
-                        intent.putExtra("Shift",shift);
+                        intent.putExtra("Date", date);
+                        intent.putExtra("DoctorUserId", userId);
+                        intent.putExtra("Shift", shift);
                         startActivity(intent);
                     }
-                },day,month,year);
-                datePickerDialog.updateDate(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
+                }, day, month, year);
+                datePickerDialog.updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() + (3 * 60 * 60 * 1000));
                 datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis() + (15 * 24 * 60 * 60 * 1000));
                 datePickerDialog.show();
