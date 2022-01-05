@@ -22,7 +22,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableRight="@mipmap/search"
-                android:focusableInTouchMode="true"
                 android:hint="Search By Specialization"
                 android:inputType="textPersonName"
                 android:maxLength="20" />

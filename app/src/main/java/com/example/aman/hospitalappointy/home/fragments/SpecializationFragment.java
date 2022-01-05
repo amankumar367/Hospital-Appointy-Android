@@ -45,7 +45,7 @@ public class SpecializationFragment extends Fragment {
 
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
-    public SpecializationFragment(){
+    public SpecializationFragment() {
         //Required Empty public constructor otherwise app will crash
     }
 
@@ -53,7 +53,7 @@ public class SpecializationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
-        final View rootView = inflater.inflate(R.layout.fragment_specialization,container,false);
+        final View rootView = inflater.inflate(R.layout.fragment_specialization, container, false);
 
         mSearch = (TextInputLayout) rootView.findViewById(R.id.search_by_specialization);
         searchtext = (EditText) rootView.findViewById(R.id.special_searchtxt);
@@ -90,24 +90,24 @@ public class SpecializationFragment extends Fragment {
         String search = mSearch.getEditText().getText().toString();
 
 
-        Query query = mDatabase.child("Specialization").orderByKey().startAt(search).endAt(search +"\uf8ff");
+        Query query = mDatabase.child("Specialization").orderByKey().startAt(search).endAt(search + "\uf8ff");
         FirebaseRecyclerOptions<BookedAppointmentList> firebaseRecyclerOptions = new FirebaseRecyclerOptions.Builder<BookedAppointmentList>()
                 .setQuery(query, BookedAppointmentList.class)
                 .build();
 
-        FirebaseRecyclerAdapter<BookedAppointmentList,SpecializationViewHolder> firebaseRecyclerAdapter =
+        FirebaseRecyclerAdapter<BookedAppointmentList, SpecializationViewHolder> firebaseRecyclerAdapter =
                 new FirebaseRecyclerAdapter<BookedAppointmentList, SpecializationViewHolder>(firebaseRecyclerOptions) {
                     @Override
                     protected void onBindViewHolder(@NonNull final SpecializationViewHolder holder, final int position, @NonNull final BookedAppointmentList model) {
 
 //                        final String doctorID = model.getDoctor_ID().toString();
-                        final String Special = getRef(position).getKey().toString();
+                        final String Special = getRef(position).getKey();
                         holder.setSpecialization(Special);
 
-                        if(position%2 == 0) {
+                        if (position % 2 == 0) {
                             holder.setImage(1);
 
-                        } else{
+                        } else {
                             holder.setImage(2);
 
                         }
@@ -115,11 +115,7 @@ public class SpecializationFragment extends Fragment {
                         holder.mView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-
-//                                Toast.makeText(getContext(), position+" = "+Special+" DoctorID = ", Toast.LENGTH_SHORT).show();
-
                                 alertDialog(Special);
-
                             }
                         });
 
@@ -180,13 +176,13 @@ public class SpecializationFragment extends Fragment {
                                     @Override
                                     public void onClick(View v) {
                                         Intent intent = new Intent(getContext(), PatientViewDoctorProfileActivity.class);
-                                        intent.putExtra("Name",doctorName);
-                                        intent.putExtra("Specialization",specialization);
-                                        intent.putExtra("Contact",contact);
-                                        intent.putExtra("Experiance",experience);
-                                        intent.putExtra("Education",education);
-                                        intent.putExtra("Shift",shift);
-                                        intent.putExtra("UserId",doctorID);
+                                        intent.putExtra("Name", doctorName);
+                                        intent.putExtra("Specialization", specialization);
+                                        intent.putExtra("Contact", contact);
+                                        intent.putExtra("Experiance", experience);
+                                        intent.putExtra("Education", education);
+                                        intent.putExtra("Shift", shift);
+                                        intent.putExtra("UserId", doctorID);
                                         startActivity(intent);
                                     }
                                 });
@@ -212,9 +208,6 @@ public class SpecializationFragment extends Fragment {
         AlertDialog dialog = builder.create();
         dialog.setCanceledOnTouchOutside(true);
         dialog.show();
-
-//        Window window = dialog.getWindow();
-//        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
     }
 
     public class SpecializationVH extends RecyclerView.ViewHolder {
@@ -258,10 +251,10 @@ public class SpecializationFragment extends Fragment {
 
             CircleImageView cr1 = (CircleImageView) mView.findViewById(R.id.profile_id_single_user);
 
-            if(i == 1){
+            if (i == 1) {
                 cr1.setImageDrawable(getResources().getDrawable(R.mipmap.stethoscope));
 
-            }else {
+            } else {
                 cr1.setImageDrawable(getResources().getDrawable(R.mipmap.injection));
             }
 

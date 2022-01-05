@@ -30,38 +30,47 @@
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".auth.LoginActivity"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".patient.PatientViewDoctorProfileActivity"
+            android:parentActivityName=".home.HomeActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".auth.RegisterPatientActivity"
+            android:parentActivityName=".auth.LoginActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".patient.PatientViewDoctorProfileActivity"
+            android:parentActivityName=".home.HomeActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".patient.BookAppointmentActivity"
             android:screenOrientation="portrait"
+            android:parentActivityName=".patient.PatientViewDoctorProfileActivity"
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".patient.PatientViewBookedAppointmentActivity"
+            android:parentActivityName=".home.HomeActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".doctor.DoctorProfileActivity"
+            android:parentActivityName=".home.HomeActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".doctor.EditDoctorProfileActivity"
+            android:parentActivityName=".doctor.DoctorProfileActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".doctor.ShowDoctorAppointmentActivity"
+            android:parentActivityName=".home.HomeActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".auth.ForgotPasswordActivity"
+            android:parentActivityName=".auth.LoginActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity

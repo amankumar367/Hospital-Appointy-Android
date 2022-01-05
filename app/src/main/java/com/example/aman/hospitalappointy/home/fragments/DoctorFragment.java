@@ -38,7 +38,7 @@ public class DoctorFragment extends Fragment {
     private DatabaseReference mDatabase;
 
 
-    public DoctorFragment(){
+    public DoctorFragment() {
         //Required Empty public constructor otherwise app will crash
     }
 
@@ -46,14 +46,14 @@ public class DoctorFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_doctor,container,false);
+        View rootView = inflater.inflate(R.layout.fragment_doctor, container, false);
 
         mDoctorList = (RecyclerView) rootView.findViewById(R.id.doctor_recyclerView);
         mDoctorList.setHasFixedSize(true);
         mDoctorList.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
 
         mSearch = (TextInputLayout) rootView.findViewById(R.id.search_by_doctor);
-        mSearchText =(EditText) rootView.findViewById(R.id.doctor_searchtxt);
+        mSearchText = (EditText) rootView.findViewById(R.id.doctor_searchtxt);
 
         mSearchText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -89,7 +89,7 @@ public class DoctorFragment extends Fragment {
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Doctor_Details");
 
-        Query query = mDatabase.orderByChild("Name").startAt(search).endAt(search +"\uf8ff");
+        Query query = mDatabase.orderByChild("Name").startAt(search).endAt(search + "\uf8ff");
 
         FirebaseRecyclerOptions<DoctorList> firebaseRecyclerOptions = new FirebaseRecyclerOptions.Builder<DoctorList>()
                 .setQuery(query, DoctorList.class)
@@ -97,48 +97,48 @@ public class DoctorFragment extends Fragment {
 
         FirebaseRecyclerAdapter<DoctorList, DoctorListViewHolder> firebaseRecyclerAdapter =
                 new FirebaseRecyclerAdapter<DoctorList, DoctorListViewHolder>(firebaseRecyclerOptions) {
-            @Override
-            protected void onBindViewHolder(@NonNull final DoctorListViewHolder holder, int position, @NonNull final DoctorList model) {
-
-                holder.setName(model.getName());
-                holder.setSpecialization(model.getSpecialization());
-                final String uid = getRef(position).getKey().toString();
-                holder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View view) {
-                        //Toast.makeText(getContext(),model.getName(),Toast.LENGTH_LONG).show();
+                    protected void onBindViewHolder(@NonNull final DoctorListViewHolder holder, int position, @NonNull final DoctorList model) {
 
-                        String name = model.getName();
-                        String specialization = model.getSpecialization();
-                        String contact = model.getContact();
-                        String experience = model.getExperiance();
-                        String education = model.getEducation();
-                        String shift = model.getShift();
+                        holder.setName(model.getName());
+                        holder.setSpecialization(model.getSpecialization());
+                        final String uid = getRef(position).getKey().toString();
+                        holder.mView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                //Toast.makeText(getContext(),model.getName(),Toast.LENGTH_LONG).show();
+
+                                String name = model.getName();
+                                String specialization = model.getSpecialization();
+                                String contact = model.getContact();
+                                String experience = model.getExperiance();
+                                String education = model.getEducation();
+                                String shift = model.getShift();
 
 
-                        Intent intent = new Intent(getContext(), PatientViewDoctorProfileActivity.class);
-                        intent.putExtra("Name",name);
-                        intent.putExtra("Specialization",specialization);
-                        intent.putExtra("Contact",contact);
-                        intent.putExtra("Experiance",experience);
-                        intent.putExtra("Education",education);
-                        intent.putExtra("Shift",shift);
-                        intent.putExtra("UserId",uid);
-                        startActivity(intent);
+                                Intent intent = new Intent(getContext(), PatientViewDoctorProfileActivity.class);
+                                intent.putExtra("Name", name);
+                                intent.putExtra("Specialization", specialization);
+                                intent.putExtra("Contact", contact);
+                                intent.putExtra("Experiance", experience);
+                                intent.putExtra("Education", education);
+                                intent.putExtra("Shift", shift);
+                                intent.putExtra("UserId", uid);
+                                startActivity(intent);
+                            }
+                        });
+
                     }
-                });
 
-            }
+                    @Override
+                    public DoctorListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-            @Override
-            public DoctorListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                        View view = LayoutInflater.from(parent.getContext())
+                                .inflate(R.layout.single_doctor_list, parent, false);
 
-                View view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.single_doctor_list, parent,false);
-
-                return new DoctorListViewHolder(view);
-            }
-        };
+                        return new DoctorListViewHolder(view);
+                    }
+                };
 
         mDoctorList.setAdapter(firebaseRecyclerAdapter);
         firebaseRecyclerAdapter.startListening();
@@ -146,7 +146,7 @@ public class DoctorFragment extends Fragment {
     }
 
 
-    public class DoctorListViewHolder extends RecyclerView.ViewHolder{
+    public class DoctorListViewHolder extends RecyclerView.ViewHolder {
 
         View mView;
 

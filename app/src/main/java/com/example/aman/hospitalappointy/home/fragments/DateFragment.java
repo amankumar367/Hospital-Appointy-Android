@@ -49,7 +49,7 @@ public class DateFragment extends Fragment {
 
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
-    public DateFragment(){
+    public DateFragment() {
         //Required Empty public constructor otherwise app will crash
     }
 
@@ -57,7 +57,7 @@ public class DateFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
-        final View rootView = inflater.inflate(R.layout.fragment_date,container,false);
+        final View rootView = inflater.inflate(R.layout.fragment_date, container, false);
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.date_doctorList_recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -79,8 +79,8 @@ public class DateFragment extends Fragment {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
-                        String date = dayOfMonth +"-"+ (month+1) +"-"+ year;
-                        Toast.makeText(rootView.getContext(), date , Toast.LENGTH_SHORT).show();
+                        String date = dayOfMonth + "-" + (month + 1) + "-" + year;
+                        Toast.makeText(rootView.getContext(), date, Toast.LENGTH_SHORT).show();
                         mSelectedDate.setVisibility(View.VISIBLE);
                         mSelectDate.setText(date);
                         mAvailableDate.setVisibility(View.VISIBLE);
@@ -88,8 +88,8 @@ public class DateFragment extends Fragment {
                         showDoctorList(date);
 
                     }
-                },day,month,year);
-                datePickerDialog.updateDate(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
+                }, day, month, year);
+                datePickerDialog.updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() + (3 * 60 * 60 * 1000));
                 datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis() + (15 * 24 * 60 * 60 * 1000));
                 datePickerDialog.show();
@@ -155,7 +155,7 @@ public class DateFragment extends Fragment {
                 .setQuery(query, DoctorList.class)
                 .build();
 
-        FirebaseRecyclerAdapter<DoctorList,DoctorLisetVH> firebaseRecyclerAdapter =
+        FirebaseRecyclerAdapter<DoctorList, DoctorLisetVH> firebaseRecyclerAdapter =
                 new FirebaseRecyclerAdapter<DoctorList, DoctorLisetVH>(firebaseRecyclerOptions) {
                     @Override
                     protected void onBindViewHolder(@NonNull final DoctorLisetVH holder, int position, @NonNull final DoctorList model) {
@@ -174,13 +174,13 @@ public class DateFragment extends Fragment {
                                 String shift = model.getShift().toString();
 
                                 Intent doctorProfile_Intent = new Intent(getContext(), PatientViewDoctorProfileActivity.class);
-                                doctorProfile_Intent.putExtra("Name",name);
-                                doctorProfile_Intent.putExtra("Specialization",specialization);
-                                doctorProfile_Intent.putExtra("Contact",contact);
-                                doctorProfile_Intent.putExtra("Experiance",experience);
-                                doctorProfile_Intent.putExtra("Education",education);
-                                doctorProfile_Intent.putExtra("Shift",shift);
-                                doctorProfile_Intent.putExtra("UserId",doctorID);
+                                doctorProfile_Intent.putExtra("Name", name);
+                                doctorProfile_Intent.putExtra("Specialization", specialization);
+                                doctorProfile_Intent.putExtra("Contact", contact);
+                                doctorProfile_Intent.putExtra("Experiance", experience);
+                                doctorProfile_Intent.putExtra("Education", education);
+                                doctorProfile_Intent.putExtra("Shift", shift);
+                                doctorProfile_Intent.putExtra("UserId", doctorID);
                                 startActivity(doctorProfile_Intent);
                             }
                         });
@@ -189,7 +189,7 @@ public class DateFragment extends Fragment {
                     @Override
                     public DoctorLisetVH onCreateViewHolder(ViewGroup parent, int viewType) {
 
-                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_doctor_list,parent,false);
+                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_doctor_list, parent, false);
 
                         return new DoctorLisetVH(view);
                     }
@@ -201,16 +201,17 @@ public class DateFragment extends Fragment {
     public class DoctorLisetVH extends RecyclerView.ViewHolder {
 
         View mView;
-       public DoctorLisetVH(View itemView) {
-           super(itemView);
 
-           mView = itemView;
-       }
+        public DoctorLisetVH(View itemView) {
+            super(itemView);
 
-       public void setDoctorName(String doctorName) {
-           TextView userName = (TextView) mView.findViewById(R.id.name_id_single_user);
-           userName.setText(doctorName);
-       }
+            mView = itemView;
+        }
+
+        public void setDoctorName(String doctorName) {
+            TextView userName = (TextView) mView.findViewById(R.id.name_id_single_user);
+            userName.setText(doctorName);
+        }
 
         public void setSpecialization(String specialization) {
             TextView userName = (TextView) mView.findViewById(R.id.special_id_single_user);
