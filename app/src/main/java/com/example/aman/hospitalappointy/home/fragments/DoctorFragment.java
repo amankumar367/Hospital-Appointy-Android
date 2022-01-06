@@ -84,7 +84,10 @@ public class DoctorFragment extends Fragment {
         if (mDatabase == null)
             mDatabase = FirebaseDatabase.getInstance().getReference().child("Doctor_Details");
 
-        Query query = mDatabase.orderByChild("Name").startAt(searchQuery).endAt(searchQuery + "\uf8ff");
+        Query query = mDatabase.orderByChild("Name");
+        if (!searchQuery.isEmpty()) {
+            query = query.startAt(searchQuery).endAt(searchQuery + "\uf8ff");
+        }
 
         FirebaseRecyclerOptions<DoctorList> firebaseRecyclerOptions = new FirebaseRecyclerOptions.Builder<DoctorList>()
                 .setQuery(query, DoctorList.class)
@@ -125,10 +128,7 @@ public class DoctorFragment extends Fragment {
 
                     @Override
                     public DoctorListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-                        View view = LayoutInflater.from(parent.getContext())
-                                .inflate(R.layout.single_doctor_list, parent, false);
-
+                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_doctor_list, parent, false);
                         return new DoctorListViewHolder(view);
                     }
                 };
@@ -139,7 +139,7 @@ public class DoctorFragment extends Fragment {
     }
 
 
-    public class DoctorListViewHolder extends RecyclerView.ViewHolder {
+    public static class DoctorListViewHolder extends RecyclerView.ViewHolder {
 
         View mView;
 

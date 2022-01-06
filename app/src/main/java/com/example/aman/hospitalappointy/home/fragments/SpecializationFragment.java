@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Objects;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -37,6 +40,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SpecializationFragment extends Fragment {
 
+    private static final String TAG = SpecializationFragment.class.getSimpleName();
     private View rootView;
 
     private RecyclerView mRecylerView;
@@ -87,7 +91,10 @@ public class SpecializationFragment extends Fragment {
     }
 
     private void updateView(String searchQuery) {
-        Query query = mDatabase.child("Specialization").orderByKey().startAt(searchQuery).endAt(searchQuery + "\uf8ff");
+        Query query = mDatabase.child("Specialization").orderByKey();
+        if (!searchQuery.isEmpty()) {
+            query = query.startAt(searchQuery).endAt(searchQuery + "\uf8ff");
+        }
 
         FirebaseRecyclerOptions<BookedAppointmentList> firebaseRecyclerOptions = new FirebaseRecyclerOptions.Builder<BookedAppointmentList>()
                 .setQuery(query, BookedAppointmentList.class)
@@ -118,11 +125,14 @@ public class SpecializationFragment extends Fragment {
 
                     @Override
                     public SpecializationViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-                        View view = LayoutInflater.from(parent.getContext())
-                                .inflate(R.layout.singel_specialization_list, parent, false);
-
+                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.singel_specialization_list, parent, false);
                         return new SpecializationViewHolder(view);
+                    }
+
+                    @Override
+                    public void onDataChanged() {
+                        super.onDataChanged();
+                        Log.d(TAG, "Specialization RecyclerViewItem Count: " + getItemCount());
                     }
                 };
         mRecylerView.setAdapter(firebaseRecyclerAdapter);
@@ -146,10 +156,10 @@ public class SpecializationFragment extends Fragment {
                 .setQuery(query, BookedAppointmentList.class)
                 .build();
 
-        FirebaseRecyclerAdapter<BookedAppointmentList, SpecializationVH> firebaseRecyclerAdapter =
-                new FirebaseRecyclerAdapter<BookedAppointmentList, SpecializationVH>(firebaseRecyclerOptions) {
+        FirebaseRecyclerAdapter<BookedAppointmentList, DoctorListViewHolder> firebaseRecyclerAdapter =
+                new FirebaseRecyclerAdapter<BookedAppointmentList, DoctorListViewHolder>(firebaseRecyclerOptions) {
                     @Override
-                    protected void onBindViewHolder(@NonNull final SpecializationVH holder, int position, @NonNull final BookedAppointmentList model) {
+                    protected void onBindViewHolder(@NonNull final DoctorListViewHolder holder, int position, @NonNull final BookedAppointmentList model) {
 
                         final String doctorID = model.getDoctor_ID();
 
@@ -183,23 +193,28 @@ public class SpecializationFragment extends Fragment {
 
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
-
+                                Log.e(TAG, "onCancelled: "+ databaseError.toString());
                             }
 
                             private String getDataSnapshot(String child, DataSnapshot dataSnapshot) {
                                 String value = "";
                                 if (dataSnapshot.hasChild(child))
-                                    value = dataSnapshot.child(child).getValue().toString();
+                                    value = Objects.requireNonNull(dataSnapshot.child(child).getValue()).toString();
                                 return value;
                             }
                         });
                     }
 
                     @Override
-                    public SpecializationVH onCreateViewHolder(ViewGroup parent, int viewType) {
-
+                    public DoctorListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
                         View mView = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_doctor_list, null);
-                        return new SpecializationVH(mView);
+                        return new DoctorListViewHolder(mView);
+                    }
+
+                    @Override
+                    public void onDataChanged() {
+                        super.onDataChanged();
+                        Log.d(TAG, "Specialization-DoctorList RecyclerViewItem Count: " + getItemCount());
                     }
                 };
         alertRecyclerView.setAdapter(firebaseRecyclerAdapter);
@@ -210,10 +225,9 @@ public class SpecializationFragment extends Fragment {
         dialog.show();
     }
 
-    public class SpecializationVH extends RecyclerView.ViewHolder {
+    public static class DoctorListViewHolder extends RecyclerView.ViewHolder {
         View mView;
-
-        public SpecializationVH(View itemView) {
+        public DoctorListViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
         }
