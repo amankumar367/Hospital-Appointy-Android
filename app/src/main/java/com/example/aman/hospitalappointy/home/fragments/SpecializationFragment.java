@@ -39,7 +39,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class SpecializationFragment extends Fragment {
 
     private View rootView;
-    private TextInputLayout mSearch;
 
     private RecyclerView mRecylerView;
 
@@ -63,9 +62,11 @@ public class SpecializationFragment extends Fragment {
     }
 
     private void initView() {
-        mSearch = (TextInputLayout) rootView.findViewById(R.id.search_by_specialization);
-        EditText searchTextBox = (EditText) rootView.findViewById(R.id.special_searchtxt);
+        mRecylerView = rootView.findViewById(R.id.specialization_recyclerView);
+        mRecylerView.setHasFixedSize(true);
+        mRecylerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
 
+        EditText searchTextBox = rootView.findViewById(R.id.special_searchtxt);
         searchTextBox.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -83,9 +84,6 @@ public class SpecializationFragment extends Fragment {
             }
         });
 
-        mRecylerView = (RecyclerView) rootView.findViewById(R.id.specialization_recyclerView);
-        mRecylerView.setHasFixedSize(true);
-        mRecylerView.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
         updateView("");
     }
 

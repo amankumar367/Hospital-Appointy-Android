@@ -31,8 +31,7 @@ import com.google.firebase.database.Query;
 
 public class DoctorFragment extends Fragment {
 
-    private EditText mSearchText;
-    private TextInputLayout mSearch;
+    private View rootView;
     private RecyclerView mDoctorList;
 
     private DatabaseReference mDatabase;
@@ -45,51 +44,48 @@ public class DoctorFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        rootView = inflater.inflate(R.layout.fragment_doctor, container, false);
+        return rootView;
+    }
 
-        View rootView = inflater.inflate(R.layout.fragment_doctor, container, false);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initView();
+    }
 
-        mDoctorList = (RecyclerView) rootView.findViewById(R.id.doctor_recyclerView);
+    private void initView() {
+        mDoctorList = rootView.findViewById(R.id.doctor_recyclerView);
         mDoctorList.setHasFixedSize(true);
         mDoctorList.setLayoutManager(new LinearLayoutManager(rootView.getContext()));
 
-        mSearch = (TextInputLayout) rootView.findViewById(R.id.search_by_doctor);
-        mSearchText = (EditText) rootView.findViewById(R.id.doctor_searchtxt);
-
-        mSearchText.addTextChangedListener(new TextWatcher() {
+        EditText searchTextBox = rootView.findViewById(R.id.doctor_searchtxt);
+        searchTextBox.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                onStart();
+
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                onStart();
+
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                onStart();
+                updateView(editable.toString());
             }
         });
 
-//        mFastScroller = (VerticalRecyclerViewFastScroller)rootView.findViewById(R.id.fast_scroller);
-//        mFastScroller.setRecyclerView(mDoctorList);
-//        mDoctorList.setOnScrollListener(mFastScroller.getOnScrollListener());
-
-
-        return rootView;
+        updateView("");
     }
 
 
-    @Override
-    public void onStart() {
-        super.onStart();
+    public void updateView(String searchQuery) {
+        if (mDatabase == null)
+            mDatabase = FirebaseDatabase.getInstance().getReference().child("Doctor_Details");
 
-        String search = mSearch.getEditText().getText().toString();
-
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("Doctor_Details");
-
-        Query query = mDatabase.orderByChild("Name").startAt(search).endAt(search + "\uf8ff");
+        Query query = mDatabase.orderByChild("Name").startAt(searchQuery).endAt(searchQuery + "\uf8ff");
 
         FirebaseRecyclerOptions<DoctorList> firebaseRecyclerOptions = new FirebaseRecyclerOptions.Builder<DoctorList>()
                 .setQuery(query, DoctorList.class)
@@ -102,12 +98,10 @@ public class DoctorFragment extends Fragment {
 
                         holder.setName(model.getName());
                         holder.setSpecialization(model.getSpecialization());
-                        final String uid = getRef(position).getKey().toString();
+                        final String uid = getRef(position).getKey();
                         holder.mView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                //Toast.makeText(getContext(),model.getName(),Toast.LENGTH_LONG).show();
-
                                 String name = model.getName();
                                 String specialization = model.getSpecialization();
                                 String contact = model.getContact();
@@ -152,20 +146,16 @@ public class DoctorFragment extends Fragment {
 
         public DoctorListViewHolder(View itemView) {
             super(itemView);
-
             mView = itemView;
         }
 
-
         public void setName(String name) {
-
-            TextView userName = (TextView) mView.findViewById(R.id.name_id_single_user);
+            TextView userName = mView.findViewById(R.id.name_id_single_user);
             userName.setText(name);
-
         }
 
         public void setSpecialization(String specialization) {
-            TextView userName = (TextView) mView.findViewById(R.id.special_id_single_user);
+            TextView userName = mView.findViewById(R.id.special_id_single_user);
             userName.setText(specialization);
         }
     }
