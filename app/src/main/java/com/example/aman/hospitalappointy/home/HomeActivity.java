@@ -26,6 +26,7 @@ import com.example.aman.hospitalappointy.feedback.FeedbackActivity;
 import com.example.aman.hospitalappointy.auth.LoginActivity;
 import com.example.aman.hospitalappointy.patient.PatientViewBookedAppointmentActivity;
 import com.example.aman.hospitalappointy.R;
+import com.example.aman.hospitalappointy.utils.KeyboardUtils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -77,15 +78,32 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //NavigationView
-        mNavigationView = (NavigationView) findViewById(R.id.main_nav_view);
+        mNavigationView = findViewById(R.id.main_nav_view);
         mNavigationView.setNavigationItemSelectedListener(this);
 
         //TabLayout , SectionPagerAdapter & ViewPager
-        mViewPager = (ViewPager) findViewById(R.id.main_ViewPager);
+        mViewPager = findViewById(R.id.main_ViewPager);
         mSectionPagerAdapter = new SectionPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mSectionPagerAdapter);
 
-        mTabLayout = (TabLayout) findViewById(R.id.main_tabLayout);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i1) {
+                hideKeyboard();
+            }
+
+            @Override
+            public void onPageSelected(int i) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int i) {
+                hideKeyboard();
+            }
+        });
+
+        mTabLayout = findViewById(R.id.main_tabLayout);
         mTabLayout.setupWithViewPager(mViewPager);
 
     }
@@ -93,9 +111,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     public void onStart() {
         super.onStart();
-
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        //Toast.makeText(this, currentUser.getUid().toString(), Toast.LENGTH_SHORT).show();
 
         Menu menuNav = mNavigationView.getMenu();
         final MenuItem nav_profile = menuNav.findItem(R.id.nav_profile);
@@ -185,8 +201,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                     nav_feedback.setVisible(true);
                     nav_BookedAppointment.setVisible(true);
 
-//                    Toast.makeText(MainActivity.this, status+" -"+Type, Toast.LENGTH_SHORT).show();
-
                     mUserDatabase.child("Doctor_Details").child(uid).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -225,15 +239,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        if (mToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
+        if (mToggle.onOptionsItemSelected(item)) return true;
         return super.onOptionsItemSelected(item);
-
     }
 
 
@@ -242,31 +251,25 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         switch (item.getItemId()) {
             case R.id.nav_profile:
-                Intent profile_Intent = new Intent(HomeActivity.this, DoctorProfileActivity.class);
-                startActivity(profile_Intent);
-
+                launchScreen(DoctorProfileActivity.class);
                 break;
 
             case R.id.nav_showAppointment:
-                Intent showAppointment_Intent = new Intent(HomeActivity.this, ShowDoctorAppointmentActivity.class);
-                startActivity(showAppointment_Intent);
+                launchScreen(ShowDoctorAppointmentActivity.class);
                 break;
 
             case R.id.nav_bookedAppointment:
-                Intent bookedAppointment_Intent = new Intent(HomeActivity.this, PatientViewBookedAppointmentActivity.class);
-                startActivity(bookedAppointment_Intent);
+                launchScreen(PatientViewBookedAppointmentActivity.class);
                 break;
 
             case R.id.nav_login:
-                Intent login_Intent = new Intent(HomeActivity.this, LoginActivity.class);
-                startActivity(login_Intent);
+                launchScreen(LoginActivity.class);
                 break;
 
             case R.id.nav_logout:
                 FirebaseAuth.getInstance().signOut();
-                onStart();
-
                 Toast.makeText(getBaseContext(), "Successfully Logged Out", Toast.LENGTH_LONG).show();
+                onStart();
                 break;
 
             case R.id.nav_feedback:
@@ -281,5 +284,15 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         }
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void launchScreen(Class<?> activity) {
+        hideKeyboard();
+        Intent intent = new Intent(HomeActivity.this, activity);
+        startActivity(intent);
+    }
+
+    private void hideKeyboard() {
+        KeyboardUtils.hideKeyboard(HomeActivity.this);
     }
 }
