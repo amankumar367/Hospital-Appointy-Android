@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="10dp">
+    android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/single_bookedAppointment"
         android:layout_width="match_parent"
         android:layout_height="115dp"
-        card_view:cardCornerRadius="4dp"
-        card_view:cardElevation="5dp"
-
-        android:id="@+id/single_bookedAppointment">
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="8dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -21,16 +20,16 @@
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:orientation="vertical">
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:src="@mipmap/stethoscope"
+                    android:layout_marginTop="15dp"
                     android:gravity="center"
-                    android:layout_marginTop="15dp"/>
+                    android:src="@mipmap/stethoscope" />
 
                 <TextView
                     android:id="@+id/single_doctorName"
@@ -38,9 +37,9 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="Doctor Name"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="15dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/colorPrimaryDark"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/single_doctorSpeciality"
@@ -52,43 +51,43 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="0.5"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/cancel_bookedAppointment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/cancel"
-                android:gravity="center"
-                android:layout_marginTop="20dp"/>
+                <ImageView
+                    android:id="@+id/cancel_bookedAppointment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:src="@mipmap/cancel" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Click Here to Cancel Appointment"
-                android:textSize="11dp"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="Click Here to Cancel Appointment"
+                    android:textSize="11dp"
+                    android:textStyle="bold" />
 
-        </LinearLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:orientation="vertical">
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:src="@mipmap/schedule"
+                    android:layout_marginTop="15dp"
                     android:gravity="center"
-                    android:layout_marginTop="15dp"/>
+                    android:src="@mipmap/schedule" />
 
                 <TextView
                     android:id="@+id/single_date"
@@ -96,9 +95,9 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="Appointment Date"
+                    android:textColor="@color/darkGreen"
                     android:textSize="15dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/darkGreen"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/single_time"
@@ -107,8 +106,7 @@
                     android:gravity="center"
                     android:text="Appointment Time"
                     android:textSize="13dp"
-                    android:textStyle="bold"
-                    />
+                    android:textStyle="bold" />
 
             </LinearLayout>
 

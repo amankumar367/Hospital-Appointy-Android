@@ -18,10 +18,17 @@
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/app_bar_layout.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/doctor_list_dialog.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/doctorlist_item_layout.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/fragment_date.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/fragment_doctor.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/fragment_specialization.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/roster_dialog.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/singel_specialization_list.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/single_booked_appointment.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/single_doctor_list.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/single_show_appointment.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/udate_dialog.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/verify_email.xml" value="0.32135416666666666" />
       </map>
     </option>
   </component>
