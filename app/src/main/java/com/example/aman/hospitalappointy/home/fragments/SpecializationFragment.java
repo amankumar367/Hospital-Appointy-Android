@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -220,12 +219,12 @@ public class SpecializationFragment extends Fragment {
         }
 
         public void setDoctorName(String doctorName) {
-            TextView userName = (TextView) mView.findViewById(R.id.name_id_single_user);
+            TextView userName = mView.findViewById(R.id.name_id_single_user);
             userName.setText(doctorName);
         }
 
         public void setSpecialization(String specialization) {
-            TextView userName = (TextView) mView.findViewById(R.id.special_id_single_user);
+            TextView userName = mView.findViewById(R.id.special_id_single_user);
             userName.setText(specialization);
         }
     }
@@ -241,13 +240,13 @@ public class SpecializationFragment extends Fragment {
         }
 
         public void setSpecialization(String special) {
-            TextView userName = (TextView) mView.findViewById(R.id.special_id_single_user);
+            TextView userName = mView.findViewById(R.id.special_id_single_user);
             userName.setText(special);
         }
 
         public void setImage(int i) {
 
-            CircleImageView imageView = (CircleImageView) mView.findViewById(R.id.profile_id_single_user);
+            CircleImageView imageView = mView.findViewById(R.id.profile_id_single_user);
             if (i == 1) {
                 imageView.setImageDrawable(getResources().getDrawable(R.mipmap.stethoscope));
             } else {
